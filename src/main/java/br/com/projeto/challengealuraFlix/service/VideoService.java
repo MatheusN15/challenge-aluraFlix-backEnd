@@ -7,4 +7,12 @@ import br.com.projeto.challengealuraFlix.entity.Video;
 public interface VideoService {
 
 	public List<Video> findAll();
+
+	public Video findById(Long id);
+
+	public void save(Video video);
+
+	public Video update(Video video, Video videoUpdate);
+
+	public void deleteById(long id);
 }
