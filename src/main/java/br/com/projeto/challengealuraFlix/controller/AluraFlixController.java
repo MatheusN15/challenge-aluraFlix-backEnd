@@ -3,6 +3,8 @@ package br.com.projeto.challengealuraFlix.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,15 +39,15 @@ public class AluraFlixController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Video> saveVideos(@RequestBody Video video, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<?> saveVideos(@RequestBody @Valid Video video, UriComponentsBuilder uriBuilder){
 		service.save(video);
 		
 		URI uri = uriBuilder.path("/videos/{id}").buildAndExpand(video.getId()).toUri();
-		return ResponseEntity.created(uri).body(new Video());
+		return ResponseEntity.created(uri).body(null);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Video> updateVideos(@PathVariable("id") long id, @RequestBody Video video){
+	public ResponseEntity<Video> updateVideos(@PathVariable("id") long id, @RequestBody @Valid Video video){
 		Video videoUpdate = service.findById(id);
 		videoUpdate = service.update(video, videoUpdate);
 		return ResponseEntity.ok(videoUpdate);
