@@ -1,7 +1,5 @@
 package br.com.projeto.challengealuraFlix.config;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
