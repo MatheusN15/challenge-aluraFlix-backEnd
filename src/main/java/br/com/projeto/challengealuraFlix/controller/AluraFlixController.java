@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -39,7 +40,7 @@ public class AluraFlixController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> saveVideos(@RequestBody @Valid Video video, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<?> saveVideo(@RequestBody Video video, UriComponentsBuilder uriBuilder){
 		service.save(video);
 		
 		URI uri = uriBuilder.path("/videos/{id}").buildAndExpand(video.getId()).toUri();
@@ -57,5 +58,11 @@ public class AluraFlixController {
 	public ResponseEntity<?> deleteVideos(@PathVariable("id") long id){
 		service.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<List<Video>> findByTittle(@RequestParam("search") String tittle){
+		List<Video> listVideos = service.findByTittle(tittle);
+		return ResponseEntity.ok(listVideos);
 	}
 }

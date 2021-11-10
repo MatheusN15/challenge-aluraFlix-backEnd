@@ -15,4 +15,8 @@ public interface VideoService {
 	public Video update(Video video, Video videoUpdate);
 
 	public void deleteById(long id);
+
+	public List<Video> findAllByCategoryId(long id);
+
+	public List<Video> findByTittle(String tittle);
 }

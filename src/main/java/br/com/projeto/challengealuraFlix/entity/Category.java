@@ -30,6 +30,11 @@ public class Category {
 	public Category() {
 		super();
 	}
+	public Category(boolean d) {
+		this.id = (long) 1;
+		this.tittle = "LIVRE";
+		this.color = "grenn";
+	}
 	public Long getId() {
 		return id;
 	}

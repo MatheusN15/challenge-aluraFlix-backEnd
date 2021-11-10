@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.challengealuraFlix.entity.Category;
+import br.com.projeto.challengealuraFlix.entity.Video;
 import br.com.projeto.challengealuraFlix.entity.Category;
 import br.com.projeto.challengealuraFlix.service.CategoryService;
+import br.com.projeto.challengealuraFlix.service.VideoService;
 
 @RestController
 @RequestMapping("/categories")
@@ -28,6 +30,9 @@ public class CategoryController {
 	@Autowired
 	private CategoryService service;
 	
+	@Autowired
+	private VideoService videoService;
+	
 	@GetMapping
 	public ResponseEntity<List<Category>> listCategorys(){
 		List<Category> listCategories = service.findAll();
@@ -35,7 +40,7 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Category> Category(@PathVariable("id") long id){
+	public ResponseEntity<Category> category(@PathVariable("id") long id){
 		return ResponseEntity.ok(service.findById(id));
 	}
 	
@@ -58,5 +63,11 @@ public class CategoryController {
 	public ResponseEntity<?> deleteCategories(@PathVariable("id") long id){
 		service.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{id}/videos")
+	public ResponseEntity<List<Video>> videosByCategory(@PathVariable long id){
+		List<Video> listVideos = videoService.findAllByCategoryId(id);
+		return ResponseEntity.ok(listVideos);
 	}
 }
