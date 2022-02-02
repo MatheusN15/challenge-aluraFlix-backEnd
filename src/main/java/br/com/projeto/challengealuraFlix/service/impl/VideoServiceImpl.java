@@ -1,20 +1,16 @@
 package br.com.projeto.challengealuraFlix.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import antlr.Utils;
 import br.com.projeto.challengealuraFlix.entity.Category;
 import br.com.projeto.challengealuraFlix.entity.Video;
-import br.com.projeto.challengealuraFlix.repository.CategoryRepository;
 import br.com.projeto.challengealuraFlix.repository.VideoRepository;
-import br.com.projeto.challengealuraFlix.service.CategoryService;
 import br.com.projeto.challengealuraFlix.service.VideoService;
-import ch.qos.logback.classic.pattern.Util;
 
 @Service
 public class VideoServiceImpl implements VideoService{
@@ -22,8 +18,8 @@ public class VideoServiceImpl implements VideoService{
 	@Autowired
 	private VideoRepository repository;
 	
-	public List<Video> findAll(){
-		return repository.findAll();
+	public Page<Video> findAll(Pageable pageable){
+		return repository.findAll(pageable);
 	}
 
 	@Override
@@ -55,8 +51,8 @@ public class VideoServiceImpl implements VideoService{
 	}
 
 	@Override
-	public List<Video> findAllByCategoryId(long id) {
-		return repository.findAllByCategoryId(id);
+	public Page<Video> findAllByCategoryId(long id, Pageable pageable) {
+		return repository.findAllByCategoryId(id, pageable);
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.challengealuraFlix.entity.Category;
 import br.com.projeto.challengealuraFlix.entity.Video;
-import br.com.projeto.challengealuraFlix.entity.Category;
 import br.com.projeto.challengealuraFlix.service.CategoryService;
 import br.com.projeto.challengealuraFlix.service.VideoService;
 
@@ -34,8 +35,8 @@ public class CategoryController {
 	private VideoService videoService;
 	
 	@GetMapping
-	public ResponseEntity<List<Category>> listCategorys(){
-		List<Category> listCategories = service.findAll();
+	public ResponseEntity<Page<Category>> listCategorys(Pageable pageable){
+		Page<Category> listCategories = service.findAll(pageable);
 		return ResponseEntity.ok(listCategories);
 	}
 	
@@ -66,8 +67,8 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/{id}/videos")
-	public ResponseEntity<List<Video>> videosByCategory(@PathVariable long id){
-		List<Video> listVideos = videoService.findAllByCategoryId(id);
+	public ResponseEntity<Page<Video>> videosByCategory(@PathVariable long id, Pageable pageable){
+		Page<Video> listVideos = videoService.findAllByCategoryId(id, pageable);
 		return ResponseEntity.ok(listVideos);
 	}
 }

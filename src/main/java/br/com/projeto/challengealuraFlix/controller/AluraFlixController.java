@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,8 @@ public class AluraFlixController {
 	private VideoService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Video>> listVideos(){
-		List<Video> listVideos = service.findAll();
+	public ResponseEntity<Page<Video>> listVideos(Pageable pageable){
+		Page<Video> listVideos = service.findAll(pageable);
 		return ResponseEntity.ok(listVideos);
 	}
 	

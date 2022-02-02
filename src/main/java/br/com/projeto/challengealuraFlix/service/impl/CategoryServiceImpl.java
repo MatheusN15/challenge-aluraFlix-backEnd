@@ -3,6 +3,8 @@ package br.com.projeto.challengealuraFlix.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.projeto.challengealuraFlix.entity.Category;
@@ -16,8 +18,8 @@ public class CategoryServiceImpl implements CategoryService{
 	private CategoryRepository repository;
 
 	@Override
-	public List<Category> findAll() {
-		return repository.findAll();
+	public Page<Category> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	@Override
@@ -27,6 +29,8 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public void save(Category category) {
+		if(category.getId()==null)
+			category.setId(1L);
 		repository.save(category);
 	}
 

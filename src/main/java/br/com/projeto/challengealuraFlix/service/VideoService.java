@@ -2,11 +2,14 @@ package br.com.projeto.challengealuraFlix.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import br.com.projeto.challengealuraFlix.entity.Video;
 
 public interface VideoService {
 
-	public List<Video> findAll();
+	public Page<Video> findAll(Pageable pageable);
 
 	public Video findById(Long id);
 
@@ -16,7 +19,7 @@ public interface VideoService {
 
 	public void deleteById(long id);
 
-	public List<Video> findAllByCategoryId(long id);
-
 	public List<Video> findByTittle(String tittle);
+
+	public Page<Video> findAllByCategoryId(long id, Pageable pageable);
 }
